@@ -1,0 +1,864 @@
+<!--
+==============================================
+  PLACEHOLDER CHECKLIST — REPLACE BEFORE LAUNCH
+==============================================
+  [ ] [COMPANY NAME]   — title, nav, hero, footer, meta
+  [ ] [PHONE NUMBER]   — nav CTA, contact, footer
+  [ ] [EMAIL ADDRESS]  — contact section, footer
+  [ ] [SUBURB]         — hero subtext, meta description
+  [ ] [SERVICE AREAS]  — hero, services intro, footer
+  [ ] [ABN]            — footer
+  [ ] [X] years / roofs — hero stats
+  [ ] [CONTACT NAME]   — about section
+  [ ] [INSTAGRAM URL]  — footer social link
+  [ ] Hero image       — search: REPLACE: hero
+  [ ] About photo      — search: REPLACE: about photo
+  [ ] Gallery photos   — search: REPLACE: gallery
+  [ ] Logo file        — search: REPLACE: logo
+==============================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[COMPANY NAME] | Roofer [SUBURB] & [SERVICE AREAS]</title>
+  <meta name="description" content="[COMPANY NAME] — licensed roofer servicing [SERVICE AREAS]. Roof repairs, re-roofing, guttering & new installations. Call [PHONE NUMBER]." />
+  <meta property="og:title" content="[COMPANY NAME] | Roofing [SERVICE AREAS]" />
+  <meta property="og:description" content="Expert roofing across [SERVICE AREAS]. Repairs, re-roofing, and new installs. Licensed & insured. Free quotes." />
+  <meta property="og:image" content="hero.jpg" />
+  <meta property="og:url" content="https://[DOMAIN].com.au" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="colors_and_type.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-body); font-size: var(--fs-body); color: var(--c-body); background: var(--c-canvas); }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .inner { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--page-pad); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--ff-display); font-weight: 700; font-size: 14px;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 14px 28px; border-radius: var(--r-btn);
+      border: 2px solid transparent; cursor: pointer;
+      transition: background var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+    }
+    .btn-primary { background: var(--c-secondary); color: #fff; border-color: var(--c-secondary); }
+    .btn-primary:hover { background: var(--c-secondary-dark); border-color: var(--c-secondary-dark); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.7); }
+    .btn-outline:hover { background: rgba(255,255,255,0.10); border-color: #fff; }
+    .btn-dark { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
+    .btn-dark:hover { background: var(--c-primary-dark); transform: translateY(-1px); }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--c-secondary); color: #fff;
+      font-size: 13px; font-family: var(--ff-display); font-weight: 600; padding: 9px 0;
+    }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .topbar a { color: inherit; transition: opacity var(--dur-fast); }
+    .topbar a:hover { opacity: 0.8; }
+    .topbar-right { display: flex; gap: 24px; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--c-primary); height: var(--nav-h);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.28);
+      animation: navDrop 0.5s var(--ease-out) both;
+    }
+    @keyframes navDrop { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .nav-logo {
+      font-family: var(--ff-display); font-weight: 900; font-size: 20px;
+      color: #fff; letter-spacing: -0.5px; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--c-secondary); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-family: var(--ff-display); font-weight: 600; font-size: 13px;
+      letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.80);
+      transition: color var(--dur-fast);
+    }
+    .nav-links a:hover { color: var(--c-secondary); }
+    .nav-cta-btn { padding: 10px 22px; font-size: 13px; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all var(--dur-base); }
+    .nav-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta-btn { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-mobile {
+        position: fixed; inset: 0; top: var(--nav-h);
+        background: var(--c-primary-dark); padding: 32px var(--page-pad);
+        flex-direction: column; gap: 8px; z-index: 99;
+      }
+      .nav-mobile.is-open { display: flex; }
+      .nav-mobile a {
+        font-family: var(--ff-display); font-weight: 700; font-size: 18px;
+        color: #fff; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      .nav-mobile .btn { margin-top: 16px; justify-content: center; }
+      .topbar-left { display: none; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 92vh;
+      display: flex; align-items: center;
+      background: var(--c-primary); overflow: hidden;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      /* REPLACE: hero image — roofer working on roof, aerial or action shot */
+      background: url('images/pexels-ann-h-45017-37133270.jpg') center/cover no-repeat;
+      opacity: 1; will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(110deg, rgba(10,10,11,0.87) 0%, rgba(28,28,30,0.60) 60%, rgba(28,28,30,0.30) 100%);
+    }
+    .hero-inner { position: relative; z-index: 1; padding: var(--space-xl) 0; max-width: 700px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(220,38,38,0.18); border: 1px solid rgba(220,38,38,0.45);
+      color: #f87171; font-family: var(--ff-display); font-weight: 700;
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: var(--r-full); margin-bottom: 24px;
+      animation: fadeUp 0.6s var(--ease-out) 0.1s both;
+    }
+    .hero-headline {
+      font-family: var(--ff-display); font-weight: 900;
+      font-size: var(--fs-hero); line-height: 1.04;
+      color: #fff; animation: fadeUp 0.7s var(--ease-out) 0.2s both;
+    }
+    .hero-headline em { font-style: normal; color: var(--c-secondary); }
+    .hero-sub {
+      font-size: 18px; line-height: 1.65; color: rgba(255,255,255,0.78);
+      margin-top: 20px; animation: fadeUp 0.7s var(--ease-out) 0.32s both;
+    }
+    .hero-cta-block {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px;
+      animation: fadeUp 0.7s var(--ease-out) 0.44s both;
+    }
+    .hero-guarantee {
+      display: flex; align-items: center; gap: 10px; margin-top: 32px;
+      color: rgba(255,255,255,0.70); font-size: 14px;
+      animation: fadeUp 0.7s var(--ease-out) 0.52s both;
+    }
+    .hero-guarantee svg { color: var(--c-accent); min-width: 20px; }
+
+    /* ── STATS BAR ── */
+    .stats { background: var(--c-primary-dark); border-bottom: 3px solid var(--c-secondary); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid rgba(255,255,255,0.10);
+    }
+    .stat {
+      padding: 28px 24px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.10);
+    }
+    .stat-num {
+      font-family: var(--ff-display); font-weight: 900; font-size: 38px;
+      color: #fff; line-height: 1; display: block;
+    }
+    .stat-suffix { color: var(--c-secondary); }
+    .stat-label {
+      font-family: var(--ff-display); font-weight: 600; font-size: 12px;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-top: 6px; display: block;
+    }
+    @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── SERVICES ── */
+    .services { padding: var(--space-section) 0; background: var(--c-canvas); }
+    .section-label {
+      font-family: var(--ff-display); font-weight: 700; font-size: 12px;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--c-secondary);
+      margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: var(--ff-display); font-weight: 800; font-size: var(--fs-h2);
+      color: var(--c-ink); line-height: 1.2; max-width: 560px; margin-bottom: 16px;
+    }
+    .section-sub { font-size: var(--fs-body-lg); color: var(--c-body); max-width: 520px; line-height: 1.65; margin-bottom: 48px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .service-card {
+      position: relative; overflow: hidden;
+      border-radius: var(--r-card);
+      min-height: 300px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      cursor: default;
+    }
+    .service-card-bg {
+      position: absolute; inset: 0;
+      background-color: var(--c-primary);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 600ms var(--ease-out);
+    }
+    .service-card:hover .service-card-bg { transform: scale(1.04); }
+    .service-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%);
+    }
+    .service-card-body {
+      position: relative; z-index: 2;
+      padding: 24px 28px;
+    }
+    .service-number {
+      font-family: var(--ff-display); font-weight: 900; font-size: 12px;
+      color: var(--c-secondary); letter-spacing: 1px; margin-bottom: 10px; display: block;
+    }
+    .service-card h3 {
+      font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h4);
+      color: #fff; margin-bottom: 8px;
+    }
+    .service-card p { font-size: var(--fs-body); line-height: 1.55; color: rgba(255,255,255,0.82); }
+    @media (max-width: 768px) { .services-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 481px) and (max-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── STATEMENT PHOTO ── */
+    .statement-photo {
+      position: relative; height: 55vh; min-height: 360px;
+      overflow: hidden;
+    }
+    .statement-bg {
+      position: absolute; inset: 0;
+      background-color: #111;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: transform 800ms var(--ease-out);
+    }
+    .statement-photo:hover .statement-bg { transform: scale(1.02); }
+    .statement-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.44);
+    }
+    .statement-content {
+      position: relative; z-index: 2;
+      height: 100%; display: flex; align-items: center;
+    }
+    .statement-text {
+      font-family: var(--ff-display); font-size: clamp(28px, 4vw, 52px);
+      font-weight: 900; color: #fff; line-height: 1.1;
+      max-width: 680px; letter-spacing: -1px;
+    }
+    .statement-text em { font-style: normal; color: var(--c-secondary); }
+
+    /* ── GALLERY ── */
+    .gallery { padding: var(--space-section) 0; background: var(--c-surface-soft); }
+    .gallery-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 20px; }
+    .gallery-grid { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+    .gallery-item {
+      overflow: hidden; border-radius: var(--r-card);
+      position: relative; aspect-ratio: 1;
+      background: #d4d4d4; cursor: pointer;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease-out); }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item:nth-child(6) { grid-column: span 2; aspect-ratio: 2; }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item { aspect-ratio: 1 !important; grid-column: span 1 !important; grid-row: span 1 !important; }
+    }
+
+    /* ── WHY US ── */
+    .why-us { padding: var(--space-section) 0; background: var(--c-primary); }
+    .why-us .section-label { color: var(--c-secondary); }
+    .why-us .section-title { color: #fff; max-width: none; }
+    .why-us .section-sub { color: rgba(255,255,255,0.70); margin-bottom: 56px; }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--r-card); overflow: hidden; }
+    .why-item { background: rgba(255,255,255,0.04); padding: 32px 24px; text-align: center; transition: background var(--dur-base); }
+    .why-item:hover { background: rgba(255,255,255,0.08); }
+    .why-icon { width: 56px; height: 56px; border-radius: var(--r-full); background: var(--c-secondary); color: #fff; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .why-item h4 { font-family: var(--ff-display); font-weight: 700; font-size: var(--fs-h5); color: #fff; margin-bottom: 8px; }
+    .why-item p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.65); }
+    @media (max-width: 768px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { padding: var(--space-section) 0; background: var(--c-canvas); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .review-card {
+      background: var(--c-canvas); border: 1px solid var(--c-hairline);
+      border-radius: var(--r-card); padding: 28px;
+      border-top: 3px solid var(--c-secondary);
+      box-shadow: var(--shadow-card);
+    }
+    .review-stars { color: var(--c-star); font-size: 16px; letter-spacing: 2px; margin-bottom: 14px; }
+    .review-text { font-size: var(--fs-body-lg); line-height: 1.65; color: var(--c-body); margin-bottom: 20px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 44px; height: 44px; border-radius: var(--r-full);
+      background: var(--c-primary); color: #fff;
+      font-family: var(--ff-display); font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .reviewer-name { font-family: var(--ff-display); font-weight: 700; font-size: 14px; color: var(--c-ink); }
+    .reviewer-loc { font-size: 13px; color: var(--c-muted); }
+    @media (max-width: 768px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* ── GUARANTEE ── */
+    .guarantee { padding: var(--space-section) 0; background: var(--c-surface-soft); }
+    .guarantee-inner { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .guarantee-badge {
+      width: 130px; height: 130px; min-width: 130px; border-radius: var(--r-full);
+      background: var(--c-primary); color: #fff; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 12px;
+    }
+    .guarantee-badge strong { font-family: var(--ff-display); font-weight: 900; font-size: 36px; line-height: 1; color: var(--c-secondary); display: block; }
+    .guarantee-badge span { font-family: var(--ff-display); font-weight: 700; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.80); margin-top: 4px; }
+    .guarantee-text h2 { font-family: var(--ff-display); font-weight: 800; font-size: var(--fs-h2); color: var(--c-ink); margin-bottom: 12px; }
+    .guarantee-text p { font-size: var(--fs-body-lg); line-height: 1.65; color: var(--c-body); max-width: 600px; }
+    @media (max-width: 600px) { .guarantee-inner { grid-template-columns: 1fr; } .guarantee-badge { margin: 0 auto; } }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      padding: var(--space-xl) 0; background: var(--c-secondary);
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before { content: ''; position: absolute; left: -60px; bottom: -60px; width: 300px; height: 300px; border-radius: var(--r-full); background: rgba(0,0,0,0.08); }
+    .cta-inner { text-align: center; position: relative; z-index: 1; }
+    .cta-inner h2 { font-family: var(--ff-display); font-weight: 900; font-size: clamp(26px, 4vw, 40px); color: #fff; margin-bottom: 10px; }
+    .cta-inner p { font-size: 18px; color: rgba(255,255,255,0.88); margin-bottom: 36px; }
+    .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ── CONTACT ── */
+    .contact { padding: var(--space-section) 0; background: var(--c-canvas); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
+    .contact-info h2 { font-family: var(--ff-display); font-weight: 800; font-size: var(--fs-h2); color: var(--c-ink); margin-bottom: 16px; }
+    .contact-info p { font-size: var(--fs-body-lg); line-height: 1.65; color: var(--c-body); margin-bottom: 32px; }
+    .contact-detail { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+    .contact-detail-icon { width: 44px; height: 44px; min-width: 44px; border-radius: var(--r-card); background: rgba(28,28,30,0.08); color: var(--c-primary); display: flex; align-items: center; justify-content: center; }
+    .contact-detail strong { font-family: var(--ff-display); font-weight: 700; font-size: 14px; color: var(--c-ink); display: block; margin-bottom: 2px; }
+    .contact-detail span { font-size: 14px; color: var(--c-body); }
+    .contact-form-wrap { background: var(--c-surface-soft); border-radius: 8px; padding: 36px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-family: var(--ff-display); font-weight: 600; font-size: 13px; color: var(--c-ink); }
+    .form-group input, .form-group textarea, .form-group select {
+      font-family: var(--ff-body); font-size: 15px; color: var(--c-ink);
+      background: var(--c-canvas); border: 1px solid var(--c-hairline-strong);
+      border-radius: var(--r-btn); padding: 12px 16px;
+      transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+      outline: none; width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--c-secondary); box-shadow: 0 0 0 3px rgba(220,38,38,0.12); }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-success { display: none; padding: 16px; background: #d1fae5; border-radius: var(--r-btn); color: #065f46; font-family: var(--ff-display); font-weight: 600; font-size: 14px; margin-top: 12px; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--c-dark); color: rgba(255,255,255,0.65); padding: 56px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; margin-top: 12px; max-width: 280px; }
+    .footer-logo { font-family: var(--ff-display); font-weight: 900; font-size: 20px; color: #fff; text-transform: uppercase; }
+    .footer-logo span { color: var(--c-secondary); }
+    .footer-col h4 { font-family: var(--ff-display); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: rgba(255,255,255,0.60); transition: color var(--dur-fast); }
+    .footer-col ul a:hover { color: var(--c-secondary); }
+    .footer-bottom { background: var(--c-dark-deep); padding: 18px 0; font-size: 13px; }
+    .footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 12px; flex-wrap: wrap; }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    .fade-up.is-visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.05s; } .d2 { transition-delay: 0.12s; }
+    .d3 { transition-delay: 0.19s; } .d4 { transition-delay: 0.26s; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="inner topbar-inner">
+      <span class="topbar-left">Licensed Roofer · ABN [ABN] · Servicing [SERVICE AREAS]</span>
+      <div class="topbar-right">
+        <a href="mailto:[EMAIL ADDRESS]">[EMAIL ADDRESS]</a>
+        <a href="tel:[PHONE NUMBER]"><strong>[PHONE NUMBER]</strong></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <div class="inner nav-inner">
+      <a href="#top" class="nav-logo">
+        <!-- REPLACE: logo — <img src="logo-white.png" alt="[COMPANY NAME]" height="38" /> -->
+        [COMPANY<span>NAME]</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Our Work</a></li>
+        <li><a href="#why-us">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="tel:[PHONE NUMBER]" class="btn btn-primary nav-cta-btn">Free Quote</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="nav-mobile" id="mobileMenu">
+      <a href="#services">Services</a>
+      <a href="#gallery">Our Work</a>
+      <a href="#why-us">About</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:[PHONE NUMBER]" class="btn btn-primary">[PHONE NUMBER]</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-photo" id="heroPhoto" aria-label="Roofer at work on residential roof"></div>
+    <div class="hero-overlay"></div>
+    <div class="inner">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg>
+          Licensed &amp; Insured · [SERVICE AREAS]
+        </div>
+        <h1 class="hero-headline">
+          [SERVICE AREAS]<br />Roofing<br /><em>Done Right.</em>
+        </h1>
+        <p class="hero-sub">
+          Repairs, re-roofing, and new installations across [SERVICE AREAS].
+          Licensed, insured, and backed by a [X]-year workmanship guarantee.
+        </p>
+        <div class="hero-cta-block">
+          <a href="tel:[PHONE NUMBER]" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call [PHONE NUMBER]
+          </a>
+          <a href="#contact" class="btn btn-outline">Get Free Quote</a>
+        </div>
+        <div class="hero-guarantee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>[X]-Year Workmanship Guarantee · Free Quotes · No Obligation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <section class="stats" aria-label="Key stats">
+    <div class="inner">
+      <div class="stats-grid">
+        <div class="stat fade-up d1">
+          <span class="stat-num" data-target="[X]">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Roofs Completed</span>
+        </div>
+        <div class="stat fade-up d2">
+          <span class="stat-num" data-target="[X]">0</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat fade-up d3">
+          <span class="stat-num" data-target="100">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">Licensed &amp; Insured</span>
+        </div>
+        <div class="stat fade-up d4">
+          <span class="stat-num" data-target="[X]">0</span>
+          <span class="stat-label">Year Guarantee</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="inner">
+      <span class="section-label fade-up">What We Do</span>
+      <h2 class="section-title fade-up d1">Roofing Services Across [SERVICE AREAS]</h2>
+      <p class="section-sub fade-up d2">From a single broken tile to a full new roof — we do the job properly the first time.</p>
+      <div class="services-grid">
+        <div class="service-card fade-up d1">
+          <!-- REPLACE: service photo — close-up roof tile repair or ridge capping work -->
+          <div class="service-card-bg" style="background-image:url('images/pexels-jan-van-der-wolf-11680885-17191633.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">01</span>
+            <h3>Roof Repairs</h3>
+            <p>Broken tiles, cracked ridge caps, leaking valleys — we diagnose the cause and fix it correctly. No band-aids, no repeat callouts.</p>
+          </div>
+        </div>
+        <div class="service-card fade-up d2">
+          <!-- REPLACE: service photo — full re-roof in progress, new tiles or Colorbond being laid -->
+          <div class="service-card-bg" style="background-image:url('images/pexels-61078180-19187101.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">02</span>
+            <h3>Full Re-Roofing</h3>
+            <p>Complete replacements using quality materials. We strip to the sarking, inspect the structure, and build it right from the ground up.</p>
+          </div>
+        </div>
+        <div class="service-card fade-up d3">
+          <!-- REPLACE: service photo — new guttering or downpipe installation, clean lines -->
+          <div class="service-card-bg" style="background-image:url('images/pexels-arlindphotography-31540963.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">03</span>
+            <h3>Guttering &amp; Downpipes</h3>
+            <p>Replacement, new installation, and gutter guard fitting. Proper drainage protects your foundations.</p>
+          </div>
+        </div>
+        <div class="service-card fade-up d1">
+          <!-- REPLACE: service photo — new build roof installation, aerial or progress shot -->
+          <div class="service-card-bg" style="background-image:url('images/pexels-gsekulski-11617492.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">04</span>
+            <h3>New Roof Installations</h3>
+            <p>New builds and extensions. Colorbond, concrete tile, terracotta — all materials, delivered on schedule with your builder.</p>
+          </div>
+        </div>
+        <div class="service-card fade-up d2">
+          <!-- REPLACE: service photo — roofer tracing leak, moisture or internal damage visible -->
+          <div class="service-card-bg" style="background-image:url('images/pexels-spmckee-11557060.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">05</span>
+            <h3>Leak Detection</h3>
+            <p>We trace every leak back to the source — not just patch the symptom — before it causes major structural damage.</p>
+          </div>
+        </div>
+        <div class="service-card fade-up d3">
+          <!-- REPLACE: service photo — inspector on roof, close-up detail shot or full-roof angle -->
+          <div class="service-card-bg" style="background-image:url('images/svc-6.jpg')"></div>
+          <div class="service-card-overlay"></div>
+          <div class="service-card-body">
+            <span class="service-number">06</span>
+            <h3>Roof Inspections</h3>
+            <p>Pre-purchase and maintenance inspections with full written reports. Know exactly what's above your head.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT PHOTO -->
+  <section class="statement-photo">
+    <!-- REPLACE: statement photo — dramatic aerial or wide shot of a completed roof. Min 1920×800. -->
+    <div class="statement-bg" style="background-image:url('images/pexels-star-zhang-3254790-17485781.jpg')"></div>
+    <div class="statement-overlay"></div>
+    <div class="inner statement-content">
+      <p class="statement-text">Your roof.<br>Our reputation.<br><em>Built to last.</em></p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="inner">
+      <div class="gallery-intro">
+        <div>
+          <span class="section-label fade-up">Our Work</span>
+          <h2 class="section-title fade-up d1" style="margin-bottom:0;">Recent Roofing Jobs</h2>
+        </div>
+        <a href="#contact" class="btn btn-dark fade-up d2">Get a Free Quote</a>
+      </div>
+      <div class="gallery-grid">
+        <!-- REPLACE: gallery photo — full re-roof aerial or wide shot, biggest feature photo -->
+        <div class="gallery-item"><img src="images/gal-1.jpg" alt="Full re-roof job" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — ridge capping or tile repair close-up -->
+        <div class="gallery-item"><img src="images/gal-2.jpg" alt="Roof tile repair" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — guttering installation, clean lines -->
+        <div class="gallery-item"><img src="images/gal-3.jpg" alt="New guttering" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — Colorbond roof laid, new installation -->
+        <div class="gallery-item"><img src="images/gal-4.jpg" alt="Colorbond roof installation" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — roofer in action on roof, safety gear visible -->
+        <div class="gallery-item"><img src="images/gal-5.jpg" alt="Roof installation in progress" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — completed terracotta or tiled roof, wide house shot -->
+        <div class="gallery-item"><img src="images/gal-6.jpg" alt="Completed tiled roof" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — gutter guard fitting or downpipe detail -->
+        <div class="gallery-item"><img src="images/gal-7.jpg" alt="Gutter guard installation" loading="lazy" /></div>
+        <!-- REPLACE: gallery photo — new build extension roof, progress or aerial -->
+        <div class="gallery-item"><img src="images/gal-8.jpg" alt="New build roofing" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us" id="why-us">
+    <div class="inner">
+      <span class="section-label fade-up">Why Choose Us</span>
+      <h2 class="section-title fade-up d1">[SERVICE AREAS]'s Roofing Crew That Gets It Done</h2>
+      <p class="section-sub fade-up d2">
+        [CONTACT NAME] has been roofing across [SERVICE AREAS] for [X] years.
+        No shortcuts, no subcontracting your job out — our crew, our quality.
+      </p>
+      <div class="why-grid">
+        <div class="why-item fade-up d1">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>[X]-Year Guarantee</h4>
+          <p>We guarantee our workmanship. If anything goes wrong, we come back and fix it — no questions, no charge.</p>
+        </div>
+        <div class="why-item fade-up d2">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h4>Fully Licensed</h4>
+          <p>QBCC licensed roofer. All work meets Australian standards and is fully insured for your peace of mind.</p>
+        </div>
+        <div class="why-item fade-up d3">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h4>On Schedule</h4>
+          <p>We start when we say we'll start and finish on time. Your project won't be left half-done while we work another job.</p>
+        </div>
+        <div class="why-item fade-up d4">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>Fixed Pricing</h4>
+          <p>Detailed written quotes before we start. The price you're quoted is the price you pay — no variations, no surprises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE SECTION -->
+  <section class="guarantee">
+    <div class="inner">
+      <div class="guarantee-inner fade-up">
+        <div class="guarantee-badge">
+          <strong>[X]</strong>
+          <span>Year<br/>Workmanship<br/>Guarantee</span>
+        </div>
+        <div class="guarantee-text">
+          <h2>We Back Our Work — In Writing</h2>
+          <p>
+            Every roof we touch comes with a [X]-year workmanship guarantee.
+            If a repair fails or an installation develops a problem due to our workmanship,
+            we'll return and fix it at no cost. That's not a marketing line — it's in every quote we give.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="inner">
+      <div style="text-align:center;margin-bottom:48px;">
+        <span class="section-label fade-up">Reviews</span>
+        <h2 class="section-title fade-up d1" style="max-width:none;margin:0 auto;">What [SERVICE AREAS] Homeowners Say</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="review-card fade-up d1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Had a major leak after the storms. [COMPANY NAME] was out next morning, found the problem in 20 minutes. Whole thing fixed same day. Haven't had a drop of water since."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">D</div>
+            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+          </div>
+        </div>
+        <div class="review-card fade-up d2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Full re-roof on a 4-bedroom house. The quote was fair, they started on the day they said, and the job was done in 3 days. Cleanest site I've seen from any tradie."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">K</div>
+            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+          </div>
+        </div>
+        <div class="review-card fade-up d3">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Used [COMPANY NAME] for a pre-purchase inspection. Thorough report, explained everything clearly. Saved me from buying a house with a roof that needed $15k of work."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">R</div>
+            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="inner cta-inner">
+      <h2>Get Your Free Roofing Quote Today</h2>
+      <p>We'll inspect your roof and give you a written, no-obligation quote within 24 hours.</p>
+      <div class="cta-buttons">
+        <a href="tel:[PHONE NUMBER]" class="btn btn-dark">Call [PHONE NUMBER]</a>
+        <a href="#contact" class="btn btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="inner">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="section-label fade-up">Contact Us</span>
+          <h2 class="fade-up d1">Request Your Free Quote</h2>
+          <p class="fade-up d2">We'll get back to you within the hour. For urgent repairs, call us directly.</p>
+          <div class="contact-detail fade-up d2">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div><strong>Phone</strong><span>[PHONE NUMBER]</span></div>
+          </div>
+          <div class="contact-detail fade-up d3">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><strong>Email</strong><span>[EMAIL ADDRESS]</span></div>
+          </div>
+          <div class="contact-detail fade-up d4">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div><strong>Service Area</strong><span>[SERVICE AREAS]</span></div>
+          </div>
+        </div>
+        <div class="contact-form-wrap fade-up d2">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" name="first_name" placeholder="John" required /></div>
+              <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" name="last_name" placeholder="Smith" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="04xx xxx xxx" required /></div>
+              <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="john@email.com" /></div>
+            </div>
+            <div class="form-group">
+              <label for="service">Service Needed</label>
+              <select id="service" name="service">
+                <option value="">Select a service…</option>
+                <option>Roof Repairs</option>
+                <option>Full Re-Roofing</option>
+                <option>Guttering &amp; Downpipes</option>
+                <option>New Roof Installation</option>
+                <option>Leak Detection</option>
+                <option>Roof Inspection</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="message">Tell Us About the Job</label><textarea id="message" name="message" placeholder="Describe the issue or what you need done…" required></textarea></div>
+            <input type="text" name="_hp_website" style="display:none" tabindex="-1" autocomplete="off" />
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
+            <div class="form-success" id="formSuccess">Thanks! We'll be in touch within the hour.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <!-- REPLACE: logo — <img src="logo-white.png" alt="[COMPANY NAME]" height="36" style="margin-bottom:12px;" /> -->
+          <div class="footer-logo">[COMPANY<span>NAME]</span></div>
+          <p>Licensed roofer servicing [SERVICE AREAS]. Repairs, re-roofing, and new builds. Licensed &amp; insured.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Roof Repairs</a></li>
+            <li><a href="#services">Full Re-Roofing</a></li>
+            <li><a href="#services">Guttering</a></li>
+            <li><a href="#services">New Installations</a></li>
+            <li><a href="#services">Roof Inspections</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:[PHONE NUMBER]">[PHONE NUMBER]</a></li>
+            <li><a href="mailto:[EMAIL ADDRESS]">[EMAIL ADDRESS]</a></li>
+            <li><a href="[INSTAGRAM URL]">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="inner footer-bottom-inner">
+        <span>© 2026 [COMPANY NAME]. All rights reserved. ABN [ABN].</span>
+        <span>Website by <a href="https://syntrasoftware.com" style="color:var(--c-secondary);">Syntra Software</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+    var hamburger = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', function () { mobileMenu.classList.toggle('is-open'); });
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { mobileMenu.classList.remove('is-open'); });
+    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+    var statObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var target = parseInt(el.getAttribute('data-target'), 10);
+        if (!target) return;
+        var startTime = null, duration = 1600;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var p = Math.min((ts - startTime) / duration, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(ease * target);
+          if (p < 1) requestAnimationFrame(step); else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+        statObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-num[data-target]').forEach(function (el) { statObs.observe(el); });
+    var heroPhoto = document.getElementById('heroPhoto');
+    if (heroPhoto) {
+      window.addEventListener('scroll', function () {
+        heroPhoto.style.transform = 'translateY(' + (window.scrollY * 0.3) + 'px)';
+      }, { passive: true });
+    }
+    var form = document.getElementById('contactForm');
+    var successMsg = document.getElementById('formSuccess');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = new FormData(form);
+      // REPLACE: webhook URL — update to your n8n webhook
+      fetch('https://jhammond.app.n8n.cloud/webhook/roofer-contact', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(data)),
+        headers: { 'Content-Type': 'application/json' }
+      }).then(function () {
+        form.reset(); successMsg.style.display = 'block';
+      }).catch(function () {
+        successMsg.textContent = 'Something went wrong — please call us directly.';
+        successMsg.style.display = 'block';
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>
