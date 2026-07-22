@@ -159,7 +159,7 @@
     /* ── STATS BAR ── */
     .stats { background: var(--c-primary-dark); border-bottom: 3px solid var(--c-secondary); }
     .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
+      display: grid; grid-template-columns: repeat(2, 1fr);
       border-left: 1px solid rgba(255,255,255,0.10);
     }
     .stat {
@@ -176,7 +176,7 @@
       letter-spacing: 0.8px; text-transform: uppercase;
       color: rgba(255,255,255,0.55); margin-top: 6px; display: block;
     }
-    @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(1, 1fr); } }
 
     /* ── SERVICES ── */
     .services { padding: var(--space-section) 0; background: var(--c-canvas); }
@@ -398,9 +398,8 @@
   <!-- TOP BAR -->
   <div class="topbar">
     <div class="inner topbar-inner">
-      <span class="topbar-left">Licensed Roofer · ABN [ABN] · Servicing [SERVICE AREAS]</span>
+      <span class="topbar-left">Licensed Roofer · Servicing [SERVICE AREAS]</span>
       <div class="topbar-right">
-        <a href="mailto:[EMAIL ADDRESS]">[EMAIL ADDRESS]</a>
         <a href="tel:[PHONE NUMBER]"><strong>[PHONE NUMBER]</strong></a>
       </div>
     </div>
@@ -444,11 +443,11 @@
           Licensed &amp; Insured · [SERVICE AREAS]
         </div>
         <h1 class="hero-headline">
-          [SERVICE AREAS]<br />Roofing<br /><em>Done Right.</em>
+          [SUBURB]<br />Roofing<br /><em>Done Right.</em>
         </h1>
         <p class="hero-sub">
           Repairs, re-roofing, and new installations across [SERVICE AREAS].
-          Licensed, insured, and backed by a [X]-year workmanship guarantee.
+          Licensed, insured, and backed by our workmanship guarantee.
         </p>
         <div class="hero-cta-block">
           <a href="tel:[PHONE NUMBER]" class="btn btn-primary">
@@ -459,7 +458,7 @@
         </div>
         <div class="hero-guarantee">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span>[X]-Year Workmanship Guarantee · Free Quotes · No Obligation</span>
+          <span>Workmanship Guarantee · Free Quotes · No Obligation</span>
         </div>
       </div>
     </div>
@@ -470,20 +469,12 @@
     <div class="inner">
       <div class="stats-grid">
         <div class="stat fade-up d1">
-          <span class="stat-num" data-target="[X]">0</span><span class="stat-suffix">+</span>
-          <span class="stat-label">Roofs Completed</span>
-        </div>
-        <div class="stat fade-up d2">
-          <span class="stat-num" data-target="[X]">0</span>
-          <span class="stat-label">Years Experience</span>
+          <span class="stat-num" data-target="[REVIEWS]">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Google Reviews</span>
         </div>
         <div class="stat fade-up d3">
           <span class="stat-num" data-target="100">0</span><span class="stat-suffix">%</span>
           <span class="stat-label">Licensed &amp; Insured</span>
-        </div>
-        <div class="stat fade-up d4">
-          <span class="stat-num" data-target="[X]">0</span>
-          <span class="stat-label">Year Guarantee</span>
         </div>
       </div>
     </div>
@@ -607,7 +598,7 @@
       <span class="section-label fade-up">Why Choose Us</span>
       <h2 class="section-title fade-up d1">[SERVICE AREAS]'s Roofing Crew That Gets It Done</h2>
       <p class="section-sub fade-up d2">
-        [CONTACT NAME] has been roofing across [SERVICE AREAS] for [X] years.
+        [COMPANY NAME] knows [SERVICE AREAS] roofs inside and out.
         No shortcuts, no subcontracting your job out — our crew, our quality.
       </p>
       <div class="why-grid">
@@ -615,7 +606,7 @@
           <div class="why-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h4>[X]-Year Guarantee</h4>
+          <h4>Workmanship Guarantee</h4>
           <p>We guarantee our workmanship. If anything goes wrong, we come back and fix it — no questions, no charge.</p>
         </div>
         <div class="why-item fade-up d2">
@@ -643,26 +634,6 @@
     </div>
   </section>
 
-  <!-- GUARANTEE SECTION -->
-  <section class="guarantee">
-    <div class="inner">
-      <div class="guarantee-inner fade-up">
-        <div class="guarantee-badge">
-          <strong>[X]</strong>
-          <span>Year<br/>Workmanship<br/>Guarantee</span>
-        </div>
-        <div class="guarantee-text">
-          <h2>We Back Our Work — In Writing</h2>
-          <p>
-            Every roof we touch comes with a [X]-year workmanship guarantee.
-            If a repair fails or an installation develops a problem due to our workmanship,
-            we'll return and fix it at no cost. That's not a marketing line — it's in every quote we give.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- TESTIMONIALS -->
   <section class="testimonials">
     <div class="inner">
@@ -676,7 +647,7 @@
           <p class="review-text">"Had a major leak after the storms. [COMPANY NAME] was out next morning, found the problem in 20 minutes. Whole thing fixed same day. Haven't had a drop of water since."</p>
           <div class="reviewer">
             <div class="reviewer-avatar">D</div>
-            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+            <div><div class="reviewer-name">Dave K.</div><div class="reviewer-loc">[SUBURB], [STATE]</div></div>
           </div>
         </div>
         <div class="review-card fade-up d2">
@@ -684,7 +655,7 @@
           <p class="review-text">"Full re-roof on a 4-bedroom house. The quote was fair, they started on the day they said, and the job was done in 3 days. Cleanest site I've seen from any tradie."</p>
           <div class="reviewer">
             <div class="reviewer-avatar">K</div>
-            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+            <div><div class="reviewer-name">Kate W.</div><div class="reviewer-loc">[SUBURB], [STATE]</div></div>
           </div>
         </div>
         <div class="review-card fade-up d3">
@@ -692,7 +663,7 @@
           <p class="review-text">"Used [COMPANY NAME] for a pre-purchase inspection. Thorough report, explained everything clearly. Saved me from buying a house with a roof that needed $15k of work."</p>
           <div class="reviewer">
             <div class="reviewer-avatar">R</div>
-            <div><div class="reviewer-name">[REVIEWER NAME]</div><div class="reviewer-loc">[SUBURB], QLD</div></div>
+            <div><div class="reviewer-name">Ryan T.</div><div class="reviewer-loc">[SUBURB], [STATE]</div></div>
           </div>
         </div>
       </div>
@@ -724,12 +695,6 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
             <div><strong>Phone</strong><span>[PHONE NUMBER]</span></div>
-          </div>
-          <div class="contact-detail fade-up d3">
-            <div class="contact-detail-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div><strong>Email</strong><span>[EMAIL ADDRESS]</span></div>
           </div>
           <div class="contact-detail fade-up d4">
             <div class="contact-detail-icon">
@@ -794,19 +759,83 @@
           <h4>Contact</h4>
           <ul>
             <li><a href="tel:[PHONE NUMBER]">[PHONE NUMBER]</a></li>
-            <li><a href="mailto:[EMAIL ADDRESS]">[EMAIL ADDRESS]</a></li>
-            <li><a href="[INSTAGRAM URL]">Instagram</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="inner footer-bottom-inner">
-        <span>© 2026 [COMPANY NAME]. All rights reserved. ABN [ABN].</span>
+        <span>© 2026 [COMPANY NAME]. All rights reserved.</span>
         <span>Website by <a href="https://syntrasoftware.com" style="color:var(--c-secondary);">Syntra Software</a></span>
       </div>
     </div>
   </footer>
+
+  <!-- Personalisation — fills in the real lead's business details from URL params
+       (?name=&suburb=&state=&phone=&reviews=). Runs first, via a TreeWalker over
+       text nodes rather than innerHTML, so it never touches the script below and
+       can't accidentally strip its event listeners. -->
+  <script>
+  (function () {
+    'use strict';
+
+    var params = new URLSearchParams(window.location.search);
+    var name = params.get('name') || 'Your Business';
+    var suburb = params.get('suburb') || 'Brisbane';
+    var state = params.get('state') || 'QLD';
+    var phone = params.get('phone') || '';
+    var reviews = params.get('reviews') || '';
+    var serviceAreas = suburb + ' & surrounding suburbs';
+    var phoneDisplay = phone || 'Enquire Now';
+
+    function splitName(n) {
+      var words = n.trim().split(/\s+/);
+      if (words.length === 1) return '<span>' + words[0] + '</span>';
+      return words.slice(0, -1).join(' ') + ' <span>' + words[words.length - 1] + '</span>';
+    }
+
+    document.querySelectorAll('.nav-logo, .footer-logo').forEach(function (el) {
+      el.innerHTML = splitName(name);
+    });
+
+    // Reviews stat: fill with the real count, or drop the whole tile if we don't have one
+    document.querySelectorAll('.stat-num[data-target="[REVIEWS]"]').forEach(function (el) {
+      if (reviews) {
+        el.setAttribute('data-target', reviews);
+      } else {
+        el.closest('.stat').remove();
+      }
+    });
+
+    function applyText(str) {
+      return str
+        .split('Call [PHONE NUMBER]').join(phone ? 'Call ' + phone : 'Get a Free Quote')
+        .split('[PHONE NUMBER]').join(phoneDisplay)
+        .split('[COMPANY NAME]').join(name)
+        .split('[SUBURB] & [SERVICE AREAS]').join(serviceAreas) // avoid "Suburb & Suburb & surrounding suburbs"
+        .split('[SERVICE AREAS]').join(serviceAreas)
+        .split('[SUBURB]').join(suburb)
+        .split('[STATE]').join(state);
+    }
+
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.parentNode && node.parentNode.tagName === 'SCRIPT') continue;
+      if (node.nodeValue.indexOf('[') === -1) continue;
+      node.nodeValue = applyText(node.nodeValue);
+    }
+
+    document.querySelectorAll('a[href*="[PHONE NUMBER]"]').forEach(function (a) {
+      a.setAttribute('href', phone ? 'tel:' + phone.replace(/[^\d+]/g, '') : '#contact');
+    });
+
+    document.title = applyText(document.title);
+    document.querySelectorAll('meta[name="description"], meta[property="og:title"], meta[property="og:description"]').forEach(function (m) {
+      m.setAttribute('content', applyText(m.getAttribute('content')));
+    });
+  })();
+  </script>
 
   <script>
   (function () {
