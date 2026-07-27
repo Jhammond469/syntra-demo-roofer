@@ -897,5 +897,154 @@
   })();
   </script>
 
+
+  <!-- Build Yours Tool — preview gate + watermark. Only activates when the
+       page is reached via ?gated=1 (the self-serve "build yours" tool and
+       IG ad funnel). Cold-outreach demo links are completely unaffected. -->
+  <style>
+    #syGateOverlay {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #syGateOverlay .sy-card {
+      width: 100%; max-width: 440px;
+      background: #0a0a0c;
+      border: 1px solid #1e1e22;
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    #syGateOverlay .sy-eyebrow {
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: #8752e0; font-weight: 700; margin-bottom: 14px;
+    }
+    #syGateOverlay h2 {
+      color: #fafafa; font-size: 26px; font-weight: 800; line-height: 1.2;
+      margin: 0 0 12px;
+    }
+    #syGateOverlay h2 span {
+      background: linear-gradient(90deg,#8752e0,#db2777);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    #syGateOverlay p {
+      color: #94969c; font-size: 14px; line-height: 1.55; margin: 0 0 24px;
+    }
+    #syGateOverlay input[type="email"] {
+      width: 100%; box-sizing: border-box;
+      background: #000; border: 1px solid #1e1e22; border-radius: 999px;
+      padding: 14px 18px; color: #fafafa; font-size: 15px; margin-bottom: 12px;
+      outline: none;
+    }
+    #syGateOverlay input[type="email"]:focus { border-color: #8752e0; }
+    #syGateOverlay button {
+      width: 100%; border: none; cursor: pointer;
+      background: linear-gradient(90deg,#8752e0,#db2777);
+      color: #fff; font-weight: 700; font-size: 15px;
+      padding: 14px 18px; border-radius: 999px;
+      transition: opacity .2s ease;
+    }
+    #syGateOverlay button:hover { opacity: .9; }
+    #syGateOverlay button:disabled { opacity: .5; cursor: default; }
+    #syGateOverlay .sy-fine {
+      color: #55565c; font-size: 11px; margin-top: 16px;
+    }
+    #syGateOverlay .sy-error {
+      color: #f87171; font-size: 12px; margin-top: 8px; min-height: 16px;
+    }
+    #syWatermark {
+      position: fixed; left: 16px; bottom: 16px; z-index: 9998;
+      background: rgba(10,10,12,.9); border: 1px solid #1e1e22;
+      border-radius: 999px; padding: 8px 14px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px; color: #94969c;
+      display: flex; align-items: center; gap: 6px;
+      backdrop-filter: blur(6px);
+    }
+    #syWatermark strong {
+      background: linear-gradient(90deg,#8752e0,#db2777);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    body.sy-gate-active { overflow: hidden; }
+  </style>
+  <script>
+  (function () {
+    'use strict';
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('gated') !== '1') return;
+
+    document.body.classList.add('sy-gate-active');
+
+    var overlay = document.createElement('div');
+    overlay.id = 'syGateOverlay';
+    overlay.innerHTML =
+      '<div class="sy-card">' +
+        '<div class="sy-eyebrow">Preview ready</div>' +
+        '<h2>Your website is <span>built.</span></h2>' +
+        '<p>Enter your email to unlock the full preview and get the link sent to you.</p>' +
+        '<input type="email" id="syGateEmail" placeholder="you@business.com.au" autocomplete="email">' +
+        '<button id="syGateSubmit">Unlock My Preview</button>' +
+        '<div class="sy-error" id="syGateError"></div>' +
+        '<div class="sy-fine">This is a preview built by Syntra Software — not your live site.</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    function showWatermark() {
+      var wm = document.createElement('div');
+      wm.id = 'syWatermark';
+      wm.innerHTML = '<span>Preview by</span> <strong>Syntra Software</strong>';
+      document.body.appendChild(wm);
+    }
+
+    function unlock() {
+      document.body.classList.remove('sy-gate-active');
+      overlay.remove();
+      showWatermark();
+    }
+
+    var submitted = sessionStorage.getItem('syGateUnlocked');
+    if (submitted === '1') { unlock(); return; }
+
+    document.getElementById('syGateSubmit').addEventListener('click', function () {
+      var emailInput = document.getElementById('syGateEmail');
+      var errorEl = document.getElementById('syGateError');
+      var email = emailInput.value.trim();
+      var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!emailOk) {
+        errorEl.textContent = 'Enter a valid email to continue.';
+        return;
+      }
+      errorEl.textContent = '';
+      var btn = this;
+      btn.disabled = true;
+      btn.textContent = 'Unlocking…';
+
+      fetch('https://build.syntrasoftware.com/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          business_name: params.get('name'),
+          phone: params.get('phone'),
+          suburb: params.get('suburb'),
+          state: params.get('state'),
+          trade: params.get('trade'),
+          review_count: params.get('reviews') ? parseInt(params.get('reviews'), 10) : null,
+          preview_url: window.location.href
+        })
+      }).catch(function () {}).finally(function () {
+        sessionStorage.setItem('syGateUnlocked', '1');
+        unlock();
+      });
+    });
+
+    document.getElementById('syGateEmail').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('syGateSubmit').click();
+    });
+  })();
+  </script>
+
 </body>
 </html>
