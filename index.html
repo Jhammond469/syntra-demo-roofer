@@ -954,6 +954,19 @@
     #syGateOverlay .sy-error {
       color: #f87171; font-size: 12px; margin-top: 8px; min-height: 16px;
     }
+    #syGateOverlay .sy-ig-btn {
+      display: block; width: 100%; box-sizing: border-box;
+      background: linear-gradient(90deg,#8752e0,#db2777);
+      color: #fff; font-weight: 700; font-size: 15px; text-decoration: none;
+      padding: 14px 18px; border-radius: 999px; text-align: center;
+      transition: opacity .2s ease;
+    }
+    #syGateOverlay .sy-ig-btn:hover { opacity: .9; }
+    #syGateOverlay .sy-dismiss {
+      display: block; width: 100%; background: transparent; border: none;
+      color: #55565c; font-size: 12px; margin-top: 14px; cursor: pointer;
+      text-decoration: underline; font-family: inherit;
+    }
     #syWatermark {
       position: fixed; left: 16px; bottom: 16px; z-index: 9998;
       background: rgba(10,10,12,.9); border: 1px solid #1e1e22;
@@ -974,6 +987,21 @@
     'use strict';
     var params = new URLSearchParams(window.location.search);
     if (params.get('gated') !== '1') return;
+
+    // Meta Pixel — scoped to gated (ad-funnel) traffic only, never on cold-outreach demo links.
+    // TODO: PIXEL_ID is a placeholder — swap in the real Syntra pixel ID before running ads.
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID');
+    fbq('track', 'PageView');
+
+    var IG_DM_URL = 'https://ig.me/m/syntrasoftware';
 
     document.body.classList.add('sy-gate-active');
 
@@ -1002,6 +1030,16 @@
       document.body.classList.remove('sy-gate-active');
       overlay.remove();
       showWatermark();
+    }
+
+    function showSuccessCard() {
+      overlay.querySelector('.sy-card').innerHTML =
+        '<div class="sy-eyebrow">Preview unlocked</div>' +
+        '<h2>Nice — it’s <span>yours.</span></h2>' +
+        '<p>Want this built out properly for your real business? Message us on Instagram and we’ll take it from there.</p>' +
+        '<a class="sy-ig-btn" id="syIgBtn" href="' + IG_DM_URL + '" target="_blank" rel="noopener">Message us on Instagram &rarr;</a>' +
+        '<button class="sy-dismiss" id="syDismissBtn" type="button">View my preview</button>';
+      document.getElementById('syDismissBtn').addEventListener('click', unlock);
     }
 
     var submitted = sessionStorage.getItem('syGateUnlocked');
@@ -1036,7 +1074,8 @@
         })
       }).catch(function () {}).finally(function () {
         sessionStorage.setItem('syGateUnlocked', '1');
-        unlock();
+        fbq('track', 'Lead');
+        showSuccessCard();
       });
     });
 
