@@ -989,7 +989,6 @@
     if (params.get('gated') !== '1') return;
 
     // Meta Pixel — scoped to gated (ad-funnel) traffic only, never on cold-outreach demo links.
-    // TODO: PIXEL_ID is a placeholder — swap in the real Syntra pixel ID before running ads.
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -998,7 +997,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'PIXEL_ID');
+    fbq('init', '1582005413535885');
     fbq('track', 'PageView');
 
     var IG_DM_URL = 'https://ig.me/m/syntrasoftware';
