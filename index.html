@@ -1059,6 +1059,8 @@
       btn.disabled = true;
       btn.textContent = 'Unlocking…';
 
+      var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
       fetch('https://build.syntrasoftware.com/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1070,11 +1072,12 @@
           state: params.get('state'),
           trade: params.get('trade'),
           review_count: params.get('reviews') ? parseInt(params.get('reviews'), 10) : null,
-          preview_url: window.location.href
+          preview_url: window.location.href,
+          event_id: eventId
         })
       }).catch(function () {}).finally(function () {
         sessionStorage.setItem('syGateUnlocked', '1');
-        fbq('track', 'Lead');
+        fbq('track', 'Lead', {}, {eventID: eventId});
         showSuccessCard();
       });
     });
