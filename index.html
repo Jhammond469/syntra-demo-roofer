@@ -999,7 +999,10 @@
     fbq('init', '1582005413535885');
     fbq('track', 'PageView');
 
-    var IG_DM_URL = 'https://ig.me/m/syntrasoftware';
+    // Growth Plan step 2 (2026-09-30): the thank-you card's one next step is booking a call.
+    // Josh chose book-call-only over keeping the Instagram DM option.
+    // The event is a 15-min call; its Calendly slug is still /30min — don't rename it, live links use it.
+    var BOOK_URL = 'https://calendly.com/jhammond469/30min';
 
     document.body.classList.add('sy-gate-active');
 
@@ -1030,13 +1033,19 @@
       showWatermark();
     }
 
-    function showSuccessCard() {
+    function showSuccessCard(email) {
+      // Prefill the email they just gave us, so Calendly and the lead record share one email
+      // (it's what SS Ops will match bookings on once that link is switched on).
+      var bookUrl = BOOK_URL + (email ? '?email=' + encodeURIComponent(email) : '');
       overlay.querySelector('.sy-card').innerHTML =
         '<div class="sy-eyebrow">Preview unlocked</div>' +
         '<h2>Nice — it’s <span>yours.</span></h2>' +
-        '<p>Want this built out properly for your real business? Message us on Instagram and we’ll take it from there.</p>' +
-        '<a class="sy-ig-btn" id="syIgBtn" href="' + IG_DM_URL + '" target="_blank" rel="noopener">Message us on Instagram &rarr;</a>' +
+        '<p>Want this built out properly for your real business? Grab a free 15-min call and we’ll walk you through it.</p>' +
+        '<a class="sy-ig-btn" id="syBookBtn" href="' + bookUrl + '" target="_blank" rel="noopener">Book a free 15-min call &rarr;</a>' +
         '<button class="sy-dismiss" id="syDismissBtn" type="button">View my preview</button>';
+      document.getElementById('syBookBtn').addEventListener('click', function () {
+        fbq('trackCustom', 'BookCallClick');
+      });
       document.getElementById('syDismissBtn').addEventListener('click', unlock);
     }
 
@@ -1076,7 +1085,7 @@
       }).catch(function () {}).finally(function () {
         sessionStorage.setItem('syGateUnlocked', '1');
         fbq('track', 'Lead', {}, {eventID: eventId});
-        showSuccessCard();
+        showSuccessCard(email);
       });
     });
 
